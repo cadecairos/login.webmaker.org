@@ -16,7 +16,8 @@ var application = require( "./controllers/application" ),
     nunjucks    = require( "nunjucks" ),
     path        = require( "path" ),
     route       = require( "./routes" ),
-    userHandle  = require( "../models/user" )( env ),
+    models      = require( "../models" )( env ),
+    token       = require( "../../lib/token" )( env, models.application ),
     util        = require( "util" );
 
 var http = express(),
@@ -113,7 +114,7 @@ http.configure( "production", function(){
   http.use( express.errorHandler() );
 });
 
-route( http, userHandle );
+route( http, models.user );
 
 http.use( express.static( path.join( __dirname, "public" ) ) );
 http.use( "/bower", express.static( path.join(__dirname, "../../bower_components" )));

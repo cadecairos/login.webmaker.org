@@ -86,3 +86,16 @@ module.exports.updateLastLoggedIn = function(User) {
     });
   };
 };
+
+module.exports.cors = function( CORS_DOMAINS ) {
+  return function (req, res, next) {
+    // Only 1 domain can be served up with Allow-Origin, so we'll use the incoming one if allowed
+    if (CORS_DOMAINS.indexOf(req.headers.origin) > -1) {
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
+    res.header('Access-Control-Allow-Methods', 'POST, GET, PUT');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-CSRF-Token');
+    res.header('Access-Control-Allow-Credentials', true);
+    }
+    next();
+  };
+};

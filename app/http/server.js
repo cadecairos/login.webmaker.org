@@ -125,10 +125,6 @@ http.configure( "development", function(){
   http.use( express.errorHandler({ dumpExceptions: true, showStack: true }) );
 });
 
-http.configure( "production", function(){
-  http.use( express.errorHandler() );
-});
-
 route( http, userHandle, webmakerAuth );
 
 http.use( express.static( path.join( __dirname, "public" ) ) );

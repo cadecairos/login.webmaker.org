@@ -325,7 +325,7 @@ module.exports = function (sequelize) {
           token: savedToken.token
         });
 
-        callback();
+        callback(err, savedToken.token);
       });
     },
 

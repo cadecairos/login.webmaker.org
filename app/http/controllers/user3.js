@@ -3,8 +3,8 @@
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 module.exports.generateLoginTokenForUser = function (modelsController) {
-  return function (req, res, next) {
-    modelsController.createToken(res.locals.user, req.body.appURL, function (err) {
+  return function (req, res) {
+    modelsController.createToken(res.locals.user, req.body.appURL, function (err, token) {
       if (err) {
         if (err.error && err.error === "User not found") {
           return res.json(404, err);
@@ -13,7 +13,7 @@ module.exports.generateLoginTokenForUser = function (modelsController) {
           "error": "login database error"
         });
       }
-      res.json({
+      res.json(200, {
         "status": "Login Token Sent"
       });
     });
